@@ -14,6 +14,7 @@ class TranslatorViewProvider {
       enableScripts: true,
       localResourceRoots: [
         vscode.Uri.joinPath(this._context.extensionUri, "media"),
+        vscode.Uri.joinPath(this._context.extensionUri, "resources"),
       ],
     };
 

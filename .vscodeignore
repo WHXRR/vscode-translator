@@ -6,3 +6,6 @@ node_modules/**
 .eslintignore
 **/*.map
 **/*.ts
+out/
+src/
+webpack.config.js
