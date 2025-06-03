@@ -1,0 +1,76 @@
+{
+  "name": "vscode-translator",
+  "displayName": "vscode-translator",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.54.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-translator.translate",
+        "title": "Translate Selected Text"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "vscode-translator.translate",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t",
+        "when": "editorTextFocus"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "translator-sidebar",
+          "title": "翻译器",
+          "icon": "resources/translate-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "translator-sidebar": [
+        {
+          "type": "webview",
+          "id": "vscode-translator.translatorView",
+          "name": "翻译器"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "VSCode Translator",
+      "properties": {
+        "vscode-translator.targetLanguage": {
+          "type": "string",
+          "default": "en",
+          "description": "Target language for translation (e.g., 'en' for English, 'zh-CN' for Chinese, 'ja' for Japanese)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.54.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.25.1"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "crypto-js": "^4.2.0",
+    "volcengine-sdk": "^0.0.2"
+  }
+}
