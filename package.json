@@ -57,7 +57,13 @@
         "vscode-translator.targetLanguage": {
           "type": "string",
           "default": "en",
-          "description": "Target language for translation (e.g., 'en' for English, 'zh-CN' for Chinese, 'ja' for Japanese)"
+          "description": "翻译的目标语言（例如，“en”表示英语，“zh”表示中文，“ja”表示日语）"
+        },
+        "vscode-translator.targetReplaceString": {
+          "type": "string",
+          "enum": ["-", "_", " "],
+          "default": "-",
+          "description": "将翻译的空格替换为指定字符串（-、_ 或空格）"
         }
       }
     }

@@ -58,22 +58,6 @@ function activate(context) {
     translatorViewProvider
   );
 
-  context.subscriptions.push(
-    vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration("vscode-translator.targetLanguage")) {
-        // 如果WebView已经创建，发送更新的语言设置
-        if (translatorViewProvider._view) {
-          const config = vscode.workspace.getConfiguration("vscode-translator");
-          const targetLanguage = config.get("targetLanguage", "en");
-          translatorViewProvider._view.webview.postMessage({
-            type: "setDefaultLang",
-            lang: targetLanguage,
-          });
-        }
-      }
-    })
-  );
-
   context.subscriptions.push(translateCommand, translatorView);
 }
 

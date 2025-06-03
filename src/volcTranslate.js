@@ -16,7 +16,9 @@ async function translate(text, targetLang) {
       }
     );
     if (res.status === 200) {
-      return res.data.translation;
+      const config = vscode.workspace.getConfiguration("vscode-translator");
+      const replaceStr = config.get("targetReplaceString", "-");
+      return res.data.translation.replaceAll(' ', replaceStr)
     } else {
       vscode.window.showErrorMessage("翻译失败");
       return null;
