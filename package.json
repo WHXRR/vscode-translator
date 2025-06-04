@@ -1,6 +1,6 @@
 {
-  "name": "vscode-translator",
-  "displayName": "vscode-translator",
+  "name": "code-lingo",
+  "displayName": "CodeLingo",
   "description": "A simple VSCode plugin for translating selected text and replacing the original text.",
   "version": "1.0.0",
   "author": "WHXRR",
@@ -17,23 +17,23 @@
   "contributes": {
     "commands": [
       {
-        "command": "vscode-translator.translate",
+        "command": "code-lingo.translate",
         "title": "Translate Selected Class"
       },
       {
-        "command": "vscode-translator.translateVariable",
+        "command": "code-lingo.translateVariable",
         "title": "Translate Selected Variable"
       }
     ],
     "keybindings": [
       {
-        "command": "vscode-translator.translate",
+        "command": "code-lingo.translate",
         "key": "ctrl+alt+c",
         "mac": "cmd+alt+c",
         "when": "editorTextFocus"
       },
       {
-        "command": "vscode-translator.translateVariable",
+        "command": "code-lingo.translateVariable",
         "key": "ctrl+alt+f",
         "mac": "cmd+alt+f",
         "when": "editorTextFocus"
@@ -52,20 +52,20 @@
       "translator-sidebar": [
         {
           "type": "webview",
-          "id": "vscode-translator.translatorView",
+          "id": "code-lingo.translatorView",
           "name": "翻译器"
         }
       ]
     },
     "configuration": {
-      "title": "VSCode Translator",
+      "title": "Code Lingo",
       "properties": {
-        "vscode-translator.targetLanguage": {
+        "code-lingo.targetLanguage": {
           "type": "string",
           "default": "en",
           "description": "翻译的目标语言（例如，“en”表示英语，“zh”表示中文，“ja”表示日语）"
         },
-        "vscode-translator.targetReplaceString": {
+        "code-lingo.targetReplaceString": {
           "type": "string",
           "enum": [
             "-",
@@ -75,7 +75,7 @@
           "default": "-",
           "description": "将返回的翻译内容中的空格替换为指定字符串（-、_ 或空格）"
         },
-        "vscode-translator.targetReplaceVariable": {
+        "code-lingo.targetReplaceVariable": {
           "type": "string",
           "enum": [
             "camelCase",

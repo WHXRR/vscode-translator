@@ -20,7 +20,7 @@ class TranslatorViewProvider {
     };
     webviewView.webview.html = this._getHtmlForWebview();
 
-    const config = vscode.workspace.getConfiguration("vscode-translator");
+    const config = vscode.workspace.getConfiguration("code-lingo");
     // 设置初始语言
     const targetLanguage = config.get("targetLanguage", "en");
     webviewView.webview.postMessage({
@@ -67,21 +67,21 @@ class TranslatorViewProvider {
             await vscode.workspace
               .getConfiguration()
               .update(
-                "vscode-translator.targetLanguage",
+                "code-lingo.targetLanguage",
                 lang,
                 vscode.ConfigurationTarget.Global
               );
             await vscode.workspace
               .getConfiguration()
               .update(
-                "vscode-translator.targetReplaceString",
+                "code-lingo.targetReplaceString",
                 replaceString,
                 vscode.ConfigurationTarget.Global
               );
             await vscode.workspace
               .getConfiguration()
               .update(
-                "vscode-translator.targetReplaceVariable",
+                "code-lingo.targetReplaceVariable",
                 replaceVariableString,
                 vscode.ConfigurationTarget.Global
               );

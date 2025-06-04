@@ -7,13 +7,13 @@ const TranslatorViewProvider = require("./TranslatorViewProvider");
  */
 function activate(context) {
   const translateClassCommand = vscode.commands.registerCommand(
-    "vscode-translator.translate",
+    "code-lingo.translate",
     function () {
       registerCommandFunction("class");
     }
   );
   const translateVariableCommand = vscode.commands.registerCommand(
-    "vscode-translator.translateVariable",
+    "code-lingo.translateVariable",
     function () {
       registerCommandFunction("variable");
     }
@@ -22,7 +22,7 @@ function activate(context) {
   // 注册侧边栏视图提供者
   const translatorViewProvider = new TranslatorViewProvider(context);
   const translatorView = vscode.window.registerWebviewViewProvider(
-    "vscode-translator.translatorView",
+    "code-lingo.translatorView",
     translatorViewProvider
   );
 
@@ -55,7 +55,7 @@ async function registerCommandFunction(type) {
   vscode.window.setStatusBarMessage("正在翻译...", 2000);
 
   // 获取目标语言设置
-  const config = vscode.workspace.getConfiguration("vscode-translator");
+  const config = vscode.workspace.getConfiguration("code-lingo");
   const targetLanguage = config.get("targetLanguage", "en");
 
   // 调用翻译API

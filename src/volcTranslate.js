@@ -18,7 +18,7 @@ async function translate(text, targetLang, translateType = "class") {
 
     if (res.status === 200) {
       let translate = res.data.translation;
-      const config = vscode.workspace.getConfiguration("vscode-translator");
+      const config = vscode.workspace.getConfiguration("code-lingo");
       if (!translate) {
         vscode.window.showErrorMessage("翻译失败");
         return null;
