@@ -59,19 +59,29 @@ const html = `
     </style>
   </head>
   <body>
-    <label for="replaceString">替换时将空格转为其他字符:</label>
+    <h3>配置</h3>
+    <label for="replaceString">翻译HTML类名时的命名规则:</label>
     <select id="replaceString">
       <option value="-" selected>短横线</option>
       <option value="_">下划线</option>
       <option value=" ">空格</option>
     </select>
-    <button id="replaceStringBtn">更新</button>
+
+    <label for="replaceVariableString">翻译变量、函数时的命名规则:</label>
+    <select id="replaceVariableString">
+      <option value="camelCase" selected>小驼峰</option>
+      <option value="pascalCase">大驼峰</option>
+      <option value="kebabCase">短横线</option>
+      <option value="snakeCase">下划线</option>
+      <option value="screamingSnakeCase">全大写下划线</option>
+    </select>
 
     <label for="targetLang">目标语言:</label>
     <input id="targetLang" placeholder="请输入..." />
-    <button id="updateLangBtn">更新</button>
+    <button id="updateBtn">更新</button>
 
-    <label for="sourceText">输入要翻译的文本:</label>
+    <h3>翻译</h3>
+    <label for="sourceText">普通翻译:</label>
     <textarea id="sourceText" placeholder="请输入..."></textarea>
     <button id="translateBtn">翻译</button>
 
@@ -81,14 +91,17 @@ const html = `
 
     <script>
       const vscode = acquireVsCodeApi();
-      const sourceTextArea = document.getElementById("sourceText");
+      const replaceStringSelect = document.getElementById("replaceString");
+      const replaceVariableStringSelect = document.getElementById(
+        "replaceVariableString"
+      );
       const targetLangInput = document.getElementById("targetLang");
+      const updateBtn = document.getElementById("updateBtn");
+
+      const sourceTextArea = document.getElementById("sourceText");
       const translateBtn = document.getElementById("translateBtn");
-      const updateLangBtn = document.getElementById("updateLangBtn");
       const resultDiv = document.getElementById("resultText");
       const copyBtn = document.getElementById("copyBtn");
-      const replaceStringSelect = document.getElementById("replaceString");
-      const replaceStringBtn = document.getElementById("replaceStringBtn");
 
       // 获取VSCode设置中的默认目标语言
       window.addEventListener("message", (event) => {
@@ -97,21 +110,14 @@ const html = `
           case "translationResult":
             resultDiv.textContent = message.translation;
             break;
-          case "error":
-            resultDiv.textContent = message.message;
-            resultDiv.style.color = "var(--vscode-errorForeground)";
-            break;
           case "setDefaultLang":
             targetLangInput.value = message.lang;
             break;
-          case "configUpdated":
-            if (message.success) {
-              resultDiv.textContent = "配置已更新";
-              resultDiv.style.color = "var(--vscode-foreground)";
-            }
-            break;
           case "setReplaceString":
             replaceStringSelect.value = message.replaceString;
+            break;
+          case "setReplaceVariable":
+            replaceVariableStringSelect.value = message.replaceVariable;
             break;
         }
       });
@@ -134,16 +140,6 @@ const html = `
         });
       });
 
-      updateLangBtn.addEventListener("click", () => {
-        const lang = targetLangInput.value;
-        if (!lang) return;
-
-        vscode.postMessage({
-          type: "updateTargetLang",
-          lang: lang,
-        });
-      });
-
       copyBtn.addEventListener("click", () => {
         const text = resultDiv.textContent;
         if (!text) {
@@ -152,16 +148,25 @@ const html = `
         navigator.clipboard.writeText(text);
       });
 
-      replaceStringBtn.addEventListener("click", () => {
+      updateBtn.addEventListener("click", () => {
+        const lang = targetLangInput.value;
         const replaceString = replaceStringSelect.value;
+        const replaceVariableString = replaceVariableStringSelect.value;
+        if (!lang) return;
+
         vscode.postMessage({
-          type: "updateReplaceString",
-          replaceString: replaceString,
+          type: "updateConfig",
+          data: {
+            lang,
+            replaceString,
+            replaceVariableString,
+          },
         });
       });
     </script>
   </body>
 </html>
+
 `;
 
 module.exports = html;

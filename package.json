@@ -1,9 +1,5 @@
 {
   "name": "vscode-translator",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/WHXRR/vscode-translator.git"
-  },
   "displayName": "vscode-translator",
   "description": "A simple VSCode plugin for translating selected text and replacing the original text.",
   "version": "1.0.0",
@@ -22,14 +18,24 @@
     "commands": [
       {
         "command": "vscode-translator.translate",
-        "title": "Translate Selected Text"
+        "title": "Translate Selected Class"
+      },
+      {
+        "command": "vscode-translator.translateVariable",
+        "title": "Translate Selected Variable"
       }
     ],
     "keybindings": [
       {
         "command": "vscode-translator.translate",
-        "key": "ctrl+shift+t",
-        "mac": "cmd+shift+t",
+        "key": "ctrl+alt+c",
+        "mac": "cmd+alt+c",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "vscode-translator.translateVariable",
+        "key": "ctrl+alt+f",
+        "mac": "cmd+alt+f",
         "when": "editorTextFocus"
       }
     ],
@@ -61,9 +67,25 @@
         },
         "vscode-translator.targetReplaceString": {
           "type": "string",
-          "enum": ["-", "_", " "],
+          "enum": [
+            "-",
+            "_",
+            " "
+          ],
           "default": "-",
-          "description": "将翻译的空格替换为指定字符串（-、_ 或空格）"
+          "description": "将返回的翻译内容中的空格替换为指定字符串（-、_ 或空格）"
+        },
+        "vscode-translator.targetReplaceVariable": {
+          "type": "string",
+          "enum": [
+            "camelCase",
+            "pascalCase",
+            "kebabCase",
+            "snakeCase",
+            "screamingSnakeCase"
+          ],
+          "default": "camelCase",
+          "description": "将返回的翻译内容单词按指定格式转换"
         }
       }
     }
