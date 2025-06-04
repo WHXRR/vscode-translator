@@ -19,9 +19,12 @@ async function translate(text, targetLang, translateType = "class") {
     if (res.status === 200) {
       let translate = res.data.translation;
       const config = vscode.workspace.getConfiguration("vscode-translator");
-      if (translateType === "class") {
+      if (!translate) {
+        vscode.window.showErrorMessage("翻译失败");
+        return null;
+      } else if (translateType === "class") {
         const replaceString = config.get("targetReplaceString", "-");
-        translate = translate.replaceAll(" ", replaceString);
+        translate = translate.toLowerCase().replaceAll(" ", replaceString);
       } else if (translateType === "variable") {
         const replaceVariable = config.get(
           "targetReplaceVariable",
