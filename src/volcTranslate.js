@@ -1,6 +1,6 @@
 const vscode = require("vscode");
 const axios = require("axios");
-const baseUrl = "http://117.72.211.122:5170/api/translate";
+const baseUrl = "http://whxrr.com/api/translate";
 async function translate(text, targetLang, translateType = "class") {
   try {
     const res = await axios.post(
