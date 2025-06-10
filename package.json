@@ -2,7 +2,7 @@
   "name": "code-lingo",
   "displayName": "CodeLingo",
   "description": "A simple VSCode plugin for translating selected text and replacing the original text.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "WHXRR",
   "publisher": "WHXRR",
   "engines": {
