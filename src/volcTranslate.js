@@ -1,6 +1,7 @@
 const vscode = require("vscode");
 const axios = require("axios");
-const baseUrl = "http://whxrr.com/api/translate";
+const baseUrl = "http://117.72.211.122:5170/api/translate";
+// const baseUrl = "http://localhost:5170/api/translate";
 async function translate(text, targetLang, translateType = "class") {
   try {
     const res = await axios.post(
@@ -15,8 +16,7 @@ async function translate(text, targetLang, translateType = "class") {
         },
       }
     );
-
-    if (res.status === 200) {
+    if (res.data.code === 200) {
       let translate = res.data.translation;
       const config = vscode.workspace.getConfiguration("code-lingo");
       if (!translate) {
@@ -33,12 +33,11 @@ async function translate(text, targetLang, translateType = "class") {
         translate = transformCase(translate, replaceVariable);
       }
       return translate;
-    } else {
-      vscode.window.showErrorMessage("翻译失败");
+    } else if (res.data.code === 201) {
+      vscode.window.showErrorMessage(res.data.msg);
       return null;
     }
   } catch (error) {
-    console.error("翻译失败:", error);
     vscode.window.showErrorMessage(`翻译失败: ${error.message}`);
     return null;
   }

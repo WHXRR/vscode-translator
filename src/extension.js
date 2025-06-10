@@ -67,8 +67,6 @@ async function registerCommandFunction(type) {
       editBuilder.replace(selection, translatedText);
     });
     vscode.window.setStatusBarMessage("翻译完成", 2000);
-  } else {
-    vscode.window.showErrorMessage("翻译失败");
   }
 }
 
