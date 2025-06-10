@@ -1,9 +1,12 @@
 # Change Log
 
-All notable changes to the "code-lingo" extension will be documented in this file.
+## [1.0.2] - 2025-06-10
+### Added
+- 修复切换插件侧边栏后配置信息丢失问题
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [1.0.1] - 2025-06-10
+### Added
+- 添加错误消息处理
 
-## [Unreleased]
-
+## [1.0.0] - 2025-06-04
 - Initial release

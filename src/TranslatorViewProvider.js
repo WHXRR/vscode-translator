@@ -20,29 +20,6 @@ class TranslatorViewProvider {
     };
     webviewView.webview.html = this._getHtmlForWebview();
 
-    const config = vscode.workspace.getConfiguration("code-lingo");
-    // 设置初始语言
-    const targetLanguage = config.get("targetLanguage", "en");
-    webviewView.webview.postMessage({
-      type: "setDefaultLang",
-      lang: targetLanguage,
-    });
-    // 设置初始字符串替换设置
-    const targetReplaceString = config.get("targetReplaceString", "-");
-    webviewView.webview.postMessage({
-      type: "setReplaceString",
-      replaceString: targetReplaceString,
-    });
-    // 设置初始字符串格式设置
-    const targetReplaceVariable = config.get(
-      "targetReplaceVariable",
-      "camelCase"
-    );
-    webviewView.webview.postMessage({
-      type: "setReplaceVariable",
-      replaceVariable: targetReplaceVariable,
-    });
-
     // 处理来自WebView的消息
     webviewView.webview.onDidReceiveMessage(async (data) => {
       switch (data.type) {
@@ -90,8 +67,35 @@ class TranslatorViewProvider {
             vscode.window.showErrorMessage(`更新配置失败: ${error.message}`);
           }
           break;
+        case "webviewReady":
+          setDefaultConfig();
+          break;
       }
     });
+    const setDefaultConfig = () => {
+      const config = vscode.workspace.getConfiguration("code-lingo");
+      // 设置初始语言
+      const targetLanguage = config.get("targetLanguage", "en");
+      webviewView.webview.postMessage({
+        type: "setDefaultLang",
+        lang: targetLanguage,
+      });
+      // 设置初始字符串替换设置
+      const targetReplaceString = config.get("targetReplaceString", "-");
+      webviewView.webview.postMessage({
+        type: "setReplaceString",
+        replaceString: targetReplaceString,
+      });
+      // 设置初始字符串格式设置
+      const targetReplaceVariable = config.get(
+        "targetReplaceVariable",
+        "camelCase"
+      );
+      webviewView.webview.postMessage({
+        type: "setReplaceVariable",
+        replaceVariable: targetReplaceVariable,
+      });
+    };
   }
 
   _getHtmlForWebview() {

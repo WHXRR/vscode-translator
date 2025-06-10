@@ -43,7 +43,7 @@
       "activitybar": [
         {
           "id": "translator-sidebar",
-          "title": "翻译器",
+          "title": "CodeLingo",
           "icon": "resources/translate-icon.svg"
         }
       ]
@@ -53,7 +53,7 @@
         {
           "type": "webview",
           "id": "code-lingo.translatorView",
-          "name": "翻译器"
+          "name": "翻译配置"
         }
       ]
     },

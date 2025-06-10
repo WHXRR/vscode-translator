@@ -121,6 +121,9 @@ const html = `
             break;
         }
       });
+      window.addEventListener("DOMContentLoaded", () => {
+        vscode.postMessage({ type: "webviewReady" });
+      });
 
       translateBtn.addEventListener("click", () => {
         const text = sourceTextArea.value;
